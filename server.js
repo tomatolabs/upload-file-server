@@ -21,9 +21,9 @@
         _existsSync = fs.existsSync || path.existsSync,
         formidable = require('formidable'),
         nodeStatic = require('node-static'),
-        imageMagick = require('imagemagick'),
+//        imageMagick = require('imagemagick'),
         options = {
-            tmpDir: __dirname + '/temp',
+            tmpDir: __dirname + '/public/files',
             publicDir: __dirname + '/public',
             uploadDir: __dirname + '/public/files',
             uploadUrl: '/files/',
@@ -250,7 +250,14 @@
                 fs.unlink(file.path);
                 return;
             }
-            fs.renameSync(file.path, options.uploadDir + '/' + fileInfo.name);
+//            fs.renameSync(file.path, options.uploadDir + '/' + fileInfo.name);
+            fs.rename(file.path, options.uploadDir + '/' + fileInfo.name, function(err) {
+                if (err) throw err;
+                fs.stat(options.uploadDir + '/' + fileInfo.name, function (err, stats) {
+                    if (err) throw err;
+                    console.log('stats: ' + JSON.stringify(stats));
+                });
+            });
 /*
             if (options.imageTypes.test(fileInfo.name)) {
                 Object.keys(options.imageVersions).forEach(function (version) {
