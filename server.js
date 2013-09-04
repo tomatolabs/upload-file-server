@@ -23,7 +23,7 @@
         nodeStatic = require('node-static'),
         imageMagick = require('imagemagick'),
         options = {
-            tmpDir: __dirname + '/tmp',
+            tmpDir: __dirname + '/temp',
             publicDir: __dirname + '/public',
             uploadDir: __dirname + '/public/files',
             uploadUrl: '/files/',
