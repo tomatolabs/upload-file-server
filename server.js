@@ -304,8 +304,8 @@
         }
     };
     if (options.ssl) {
-        require('https').createServer(options.ssl, serve).listen(port);
+        require('https').createServer(options.ssl, serve).listen(port, '127.0.0.1');
     } else {
-        require('http').createServer(serve).listen(port);
+        require('http').createServer(serve).listen(port, '127.0.0.1');
     }
 }(8888));
