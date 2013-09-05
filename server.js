@@ -127,6 +127,7 @@
                 }
                 break;
             case 'POST':
+                console.log('Start handling upload.');
                 setNoCacheHeaders();
                 handler.post();
                 break;
@@ -251,13 +252,10 @@
                 return;
             }
 //            fs.renameSync(file.path, options.uploadDir + '/' + fileInfo.name);
-            fs.rename(file.path, options.uploadDir + '/' + fileInfo.name, function(err) {
-                if (err) throw err;
-                fs.stat(options.uploadDir + '/' + fileInfo.name, function (err, stats) {
-                    if (err) throw err;
-                    console.log('stats: ' + JSON.stringify(stats));
-                });
-            });
+            fileInfo.name = Date.now().valueOf();
+            var newfileName = options.uploadDir + '/' + fileInfo.name;
+            console.log('Saving file: ' + newfileName);
+            fs.renameSync(file.path, newfileName);
 /*
             if (options.imageTypes.test(fileInfo.name)) {
                 Object.keys(options.imageVersions).forEach(function (version) {
